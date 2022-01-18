@@ -18,6 +18,7 @@ import StudentList from './pages/sidemenu/StudentList';
 import QuestionList from './pages/sidemenu/QuestionList';
 import SessionList from './pages/sidemenu/SessionList';
 import EarningList from './pages/sidemenu/EarningList';
+import SystemValueList from './pages/sidemenu/SystemValueList';
 
 import Field from './pages/others/Field';
 import Application from './pages/others/Application';
@@ -26,6 +27,7 @@ import Student from './pages/others/Student';
 import Question from './pages/others/Question';
 import Session from './pages/others/Session';
 import Earning from './pages/others/Earning';
+import SystemValue from './pages/others/SystemValue';
 
 const routes = [
   {
@@ -45,6 +47,7 @@ const routes = [
       { path: 'questions', element: <QuestionList /> },
       { path: 'sessions', element: <SessionList /> },
       { path: 'earnings', element: <EarningList /> },
+      { path: 'systemvalues', element: <SystemValueList /> },
       // My routes
     ]
   },
@@ -58,6 +61,7 @@ const routes = [
       { path: 'question/:id', element: <Question /> }, 
       { path: 'session/:id', element: <Session /> }, 
       { path: 'earning/:id', element: <Earning /> }, 
+      { path: 'systemvalue/:id', element: <SystemValue /> }, 
     ]
   },
   {

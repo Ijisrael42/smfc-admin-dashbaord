@@ -8,7 +8,7 @@ import NavItem from './NavItem';
 import { Drawer as MuiDrawer, Tooltip, ListItem, ListItemIcon, IconButton, ListItemText } from '@mui/material';
 import { MoveToInbox as InboxIcon, Mail as MailIcon, ChevronLeft as ChevronLeftIcon, ChevronRight as ChevronRightIcon,
   Article as ArticleIcon, AccessibilityNew as AccessibilityNewIcon, Group as GroupIcon, HelpOutline as HelpOutlineIcon,
-  Videocam as VideocamIcon, DynamicFeed as DynamicFeedIcon, Paid as PaidIcon }  from '@mui/icons-material/';
+  Videocam as VideocamIcon, DynamicFeed as DynamicFeedIcon, Paid as PaidIcon, }  from '@mui/icons-material/';
 import { styled, useTheme } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 
@@ -33,6 +33,7 @@ const items = [
   { href: '/app/questions', icon: DynamicFeedIcon, title: 'Questions' },
   { href: '/app/sessions', icon: VideocamIcon, title: 'Sessions' },
   { href: '/app/earnings', icon: PaidIcon, title: 'Earnings' },
+  { href: '/app/systemvalues', icon: SettingsIcon, title: 'System Values' },
 ];
 
 const drawerWidth = 240;

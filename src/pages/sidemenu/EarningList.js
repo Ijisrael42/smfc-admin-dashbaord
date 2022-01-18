@@ -8,6 +8,7 @@ import { questionService } from '../../services/questionService';
 import React, { useState, useEffect  } from "react";
 import { useNavigate  } from "react-router-dom";
 import { Backdrop, CircularProgress } from '@mui/material';
+import { systemvalueService } from '../../services/systemvalueService'; 
 
 const EarningList = () => {
   
@@ -39,7 +40,9 @@ const EarningList = () => {
     questionService.getAll()
     .then( async (response)  => { 
       const fields = await fieldService.getAll(), bids = await bidService.getAll();
-      console.log(bids)
+      const serviceFee = await systemvalueService.getByParams({ name: 'Service Fee'});
+
+      console.log(serviceFee);
       let fieldNames = [], bidAmounts = [], paid = [], complete = [];
 
       fields.forEach( (field) => { fieldNames[field.id] = field.name; });
@@ -51,9 +54,9 @@ const EarningList = () => {
       response.forEach(el => {
         if( statuses.indexOf(el.status) !== -1 ){
           let category = fieldNames[el.category] ? fieldNames[el.category] : el.category;
-          let fee = 0, bid = el.bid_id, feePercentage = .2;
+          let fee = 0, bid = el.bid_id;
 
-          if( bidAmounts[el.bid_id] ) { bid = bidAmounts[el.bid_id]; fee = bid * feePercentage; }          
+          if( bidAmounts[el.bid_id] ) { bid = bidAmounts[el.bid_id]; fee = bid * serviceFee[0].value; }          
           let data = createData( el.id, el.no_of_hours, category, "R " + el.budget, "R " + bid, "R " + fee );
 
           if( el.status === "Paid" ) paid.push(data);
