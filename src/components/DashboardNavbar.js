@@ -1,17 +1,13 @@
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { 
-  // AppBar, 
-  Badge, Box, Hidden, IconButton, Toolbar } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
-import InputIcon from '@material-ui/icons/Input';
+import { Menu as MenuIcon, Input as InputIcon, NotificationsOutlined as NotificationsIcon } from '@material-ui/icons';
 import Logo from './Logo';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
 import { styled, useTheme } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import { MuiDrawer, Hidden, IconButton, Toolbar, AppBar as MuiAppBar, MenuItem, Typography, Menu } from '@mui/material';
+import React from 'react';
+import { accountService } from '../services/accountService'; 
 
 const drawerWidth = 240;
 
@@ -35,6 +31,19 @@ const AppBar = styled(MuiAppBar, {
 
 const DashboardNavbar = ({ open, handleDrawerOpen, toggleDrawer, state, bannerName, ...rest }) => {
   // const [notifications] = useState([]);
+  const navigate = useNavigate();
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleChange = (event) => { setAuth(event.target.checked); };
+  const handleMenu = (event) => { setAnchorEl(event.currentTarget); };
+  const handleClose = () => { setAnchorEl(null); };
+
+  const logout = () => {
+    const response = accountService.logout();
+    if ( response === 'success' ) navigate('/');
+    else response.then(() => navigate('/'));
+  }
 
   return (
     <AppBar position="fixed" open={open} elevation={0} {...rest} >
@@ -42,22 +51,27 @@ const DashboardNavbar = ({ open, handleDrawerOpen, toggleDrawer, state, bannerNa
 
         <Hidden smDown>
           <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-                sx={{
-                  marginRight: '36px',
-                  ...(open && { display: 'none' }),
-                }}
-              >
+              <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start"
+                sx={{ marginRight: '36px', ...(open && { display: 'none' }), }} >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h6" noWrap component="div">
+              <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
                 <h2>{ bannerName ? bannerName : "Mini variant drawer" }</h2>
               </Typography>
 
+              <div>
+                <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar"
+                  aria-haspopup="true" onClick={handleMenu} color="inherit" >
+                  <AccountCircle />
+                </IconButton>
+                <Menu id="menu-appbar" anchorEl={anchorEl} anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
+                  keepMounted transformOrigin={{ vertical: 'top', horizontal: 'right', }}
+                  open={Boolean(anchorEl)} onClose={handleClose} >
+                  <MenuItem component={RouterLink} to="/app/profile" >Profile</MenuItem>
+                  <MenuItem onClick={() => logout()}>Log Out</MenuItem>
+                </Menu>
+              </div>
+              
           </Toolbar>
         </Hidden>
         

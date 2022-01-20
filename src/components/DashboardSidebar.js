@@ -34,6 +34,7 @@ const items = [
   { href: '/app/sessions', icon: VideocamIcon, title: 'Sessions' },
   { href: '/app/earnings', icon: PaidIcon, title: 'Earnings' },
   { href: '/app/systemvalues', icon: DisplaySettingsIcon, title: 'System Values' },
+  // { href: '/app/push-notification', icon: SettingsIcon, title: 'Settings' },
 ];
 
 const drawerWidth = 240;
