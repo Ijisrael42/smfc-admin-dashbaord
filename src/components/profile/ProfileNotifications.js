@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 
 const ProfileNotifications = (props) => {
 
-  const [showLoading, setShowLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [checked, setChecked] = useState(false);
   const [state, setState] = useState("success");
@@ -25,8 +24,7 @@ const ProfileNotifications = (props) => {
       <AlertTitle>{stateMessage}</AlertTitle> 
       You have successfully — <strong>Turned {onOff} Notification!</strong>
     </>);
-    setAlert(alert);
-
+    setAlert(alert); handleClose(); handleClick(); setTimeout(() => navigate(0), delay);
   }
 
   const handleClose = () => { setOpen(false); };
@@ -45,6 +43,7 @@ const ProfileNotifications = (props) => {
   useEffect(() => {
     ( async () => {
       const user = await accountService.userValue;
+      console.log(user);
       const isToken = ( user && user.device_token !== "" ) ? true : false;
       setUser(user); setChecked(isToken);
     })();
@@ -54,7 +53,7 @@ const ProfileNotifications = (props) => {
   const enableDisable = async (isEnabled) => {
 
     if( isEnabled === checked ) return;
-    setChecked(isEnabled); setShowLoading(true);
+    setChecked(isEnabled); handleToggle();
 
     if( isEnabled === true ) enable();
     else if( isEnabled === false ) update("");
@@ -66,18 +65,17 @@ const ProfileNotifications = (props) => {
       const currentToken = await messaging.getToken({ vapidKey: config.vapidKey });
       console.log(currentToken);
       if (currentToken) update(currentToken);
-      else { setAlertBody( "error", "on" ); setShowLoading(false); }
+      else { setAlertBody( "error", "on" ); }
     } 
-    catch (err) {  setAlertBody( "error", "on" ); setShowLoading(false);}
+    catch (err) { setAlertBody( "error", "on" ); }
   }
 
   const update = ( token ) => {
 
     accountService.update(user.id, { device_token: token })
-    .then(response => {
-        setShowLoading(false); 
-        if( token === "" ) setAlertBody( "success", "off" );
-        else setAlertBody( "success", "on" );
+    .then(response => {       
+      if( token === "" ) setAlertBody( "success", "off" );
+      else setAlertBody( "success", "on" );
     })
     .catch(error => { 
         if( token === "" ) setAlertBody( "success", "off" );
