@@ -5,7 +5,7 @@ import { Menu as MenuIcon, Input as InputIcon, NotificationsOutlined as Notifica
 import Logo from './Logo';
 import { styled, useTheme } from '@mui/material/styles';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { MuiDrawer, Hidden, IconButton, Toolbar, AppBar as MuiAppBar, MenuItem, Typography, Menu } from '@mui/material';
+import { Hidden, IconButton, Toolbar, AppBar as MuiAppBar, MenuItem, Typography, Menu } from '@mui/material';
 import React from 'react';
 import { accountService } from '../services/accountService'; 
 

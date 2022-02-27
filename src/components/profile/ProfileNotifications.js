@@ -20,6 +20,7 @@ const ProfileNotifications = (props) => {
 
   const setAlertBody = ( state, onOff ) => { 
     const stateMessage = state === "success" ? "Success" : "Error";
+    setState(state);
     const alert = (<>
       <AlertTitle>{stateMessage}</AlertTitle> 
       You have successfully — <strong>Turned {onOff} Notification!</strong>

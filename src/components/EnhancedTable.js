@@ -115,6 +115,7 @@ EnhancedTableToolbar.propTypes = {
 
 export default function EnhancedTable(props) {
   const { rows, headCells, module, selected, setSelected, deleteSelected } = props;
+  
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   // const [selected, setSelected] = React.useState([]);
